@@ -29,52 +29,7 @@ router.get("/", async (req,res ) => {
 });
 
 
-router.post("/", async (req,res ) => {
-    try{
-      console.log(req.body);
-    const moviesData = req.body;
-    const newMovie = new Movie (moviesData);
-    await newMovie.save();
-    res.json({
-        message :"Movie added successfully",
-    });
-}
-
-catch (error)
-{
-    console.log(error);
-    res.status(500).json({
-        message : "Internal server error",
-    });
-}
-})
-
-router.put("/:id", async (req, res) => {
-    try {
-      const id = req.params.id ;  // taking id eg : unique id
-      const updates = req.body;
-      await Movie.findByIdAndUpdate(id, updates);
-      res.json({ message: "Movie update successfully" });
-      }
-    catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
-  
-
-router.delete("/:id", async (req, res) => {
-    try {
-      const id = req.params.id;
-      await Movie.deleteOne({ _id: id });
-      res.json({ message: "Movie deleted successfully" });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
-
-  router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const movieid = req.params.id;
         console.log("Handling the get by id request");
@@ -86,6 +41,54 @@ router.delete("/:id", async (req, res) => {
         } else {
         res.status(500).json({ message: "Internal server error"});
     }
-}
+} 
 });
+
+
+
+router.post("/", async (req,res ) => {
+    try{
+    const moviesData = req.body;
+    const newMovie = new Movie (moviesData);
+    await newMovie.save();
+    res.json({
+        message :"Movie added successfully"
+    });
+}
+
+catch (error)
+{
+    console.log(error);
+    res.status(500).json({
+        message : "Internal server error"
+    });
+}
+})
+
+router.put("/:id", async (req, res) => {
+    try {
+      const id = req.params.id ;
+      const updates = req.body;
+      await Movie.findByIdAndUpdate(id, updates);
+      res.json({ message: "Movie update successfully" });
+      }
+    catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+router.delete("/:id", async (req, res) => {
+    try {
+      const id = req.params.id;
+      await Movie.findByIdAndUpdate(id);
+      res.json({ message: "Movie deleted successfully" });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
+
+
 module.exports=router;
