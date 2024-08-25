@@ -4,6 +4,7 @@ const movieSchema = new mongooese.Schema({
   name: {
     type: String,
     required: true,
+    unique:true,
   },
   description: {
     type: String,
@@ -26,6 +27,7 @@ const movieSchema = new mongooese.Schema({
     required: true,
   },
 });
+
 const Movie = mongooese.model("Movie", movieSchema);
 
 module.exports = Movie;
